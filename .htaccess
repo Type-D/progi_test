@@ -1,0 +1,2 @@
+RewriteEngine On
+RewriteRule . /var/www/html/backend/index.php
