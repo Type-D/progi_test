@@ -1,5 +1,5 @@
 ## Running the PHP project (endpoint)
-Modify `.htaccess` so the rewrite rule points to the `backend/src/index.php` and move it at the root of your web server directory
+Modify `.htaccess` so the rewrite rule points to the `backend/src/index.php` and move it *at the root of your web server directory*
 
 Start your web server.
 
