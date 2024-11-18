@@ -1,2 +1,2 @@
 RewriteEngine On
-RewriteRule . /var/www/html/backend/src/index.php
+RewriteRule . /var/www/html/progi_test/backend/src/index.php
