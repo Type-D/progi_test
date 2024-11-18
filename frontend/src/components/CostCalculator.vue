@@ -131,6 +131,10 @@ h3 {
   color: #666;
 }
 
+div.error {
+  color: #f00;
+}
+
 div.card {
   border: 2px solid #999;
   border-radius: 10px;
