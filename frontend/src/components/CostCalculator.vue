@@ -5,7 +5,7 @@
   type Fees = {
     storageFee: number;
     basicBuyerFee: number
-    specialSellerFee: number;
+    sellerSpecialFee: number;
     associationFee: number;
   };
 
@@ -22,20 +22,13 @@
   const fees = ref<Fees>({
     storageFee: 0,
     basicBuyerFee: 0,
-    specialSellerFee: 0,
+    sellerSpecialFee: 0,
     associationFee: 0,
+    totalFees: 0,
   });
 
   // Vehicle price is still a float
-  const totalFees = computed(() =>
-    (
-      (vehicle.value.basePrice * 100) +
-      fees.value.storageFee +
-      fees.value.basicBuyerFee +
-      fees.value.specialSellerFee +
-      fees.value.associationFee | 0
-    )
-  )
+  const totalFees = computed(() => ((vehicle.value.basePrice * 100) + fees.value.totalFees));
 
   const errorMessage = computed(() => {
     if (parseFloat(vehicle.value.basePrice) !== vehicle.value.basePrice) {
@@ -58,16 +51,22 @@
   }
 
   const updateFees = async() => {
-    const { data } = await axios.get(
-      "http://localhost/cost-calculator/calculateCosts",
-      {
-        params: {
-          vehiclePrice: parseInt(vehicle.value.basePrice * 100) | 0, // Use cents to avoid floating point shenanigans
-          vehicleType: vehicle.value.type,
-        },
-      }
-    );
-    fees.value = data;
+    try {
+      const { data } = await axios.get(
+        "http://localhost/cost-calculator/calculateCosts",
+        {
+          params: {
+            vehiclePrice: parseInt(vehicle.value.basePrice * 100) | 0, // Use cents to avoid floating point shenanigans
+            vehicleType: vehicle.value.type,
+          },
+        }
+      );
+      fees.value = data;
+    } catch(e) {
+      // Error should be handled properly so something is displayed to the user
+      // Not done because scope has to be limited
+      console.error(e);
+    }
   };
 
   const formatForDisplay = (value) => {
@@ -109,7 +108,7 @@
     </div>
     <div class="fields fees">
       <div class="label">Special: </div>
-      <div>{{ formatForDisplay(fees.specialSellerFee) }} $</div>
+      <div>{{ formatForDisplay(fees.sellerSpecialFee) }} $</div>
     </div>
     <div class="fields fees">
       <div class="label">Association: </div>

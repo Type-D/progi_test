@@ -1,0 +1,19 @@
+{
+    "name": "dave/backend",
+    "require-dev": {
+        "phpunit/phpunit": "10.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dave\\Backend\\": "src/"
+        },
+        "files": ["src/Helpers/Enums.php", "src/Model/CostCalculatorModel.php", "src/Controller/Api/BaseController.php", "src/Controller/Api/CostCalculatorController.php"]
+    },
+    "authors": [
+        {
+            "name": "farrelldgmail",
+            "email": "farrelld@gmail.com"
+        }
+    ],
+    "require": {}
+}
